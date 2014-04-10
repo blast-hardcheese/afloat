@@ -214,7 +214,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void) setOnAllSpaces:(BOOL) spaces forWindow:(NSWindow*) c {
 	if ([c collectionBehavior] != NSWindowCollectionBehaviorCanJoinAllSpaces && spaces) {
-		[AfloatStorage setSharedValue:[NSNumber numberWithUnsignedInteger:[c collectionBehavior]]
+		[AfloatStorage setSharedValue:@([c collectionBehavior])
 							   window:c key:kAfloatLastSpacesSettingKey];
 		[c setCollectionBehavior:NSWindowCollectionBehaviorCanJoinAllSpaces];
 	} else {
@@ -324,7 +324,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 - (void) setAlphaValueAnimatesOnMouseOver:(BOOL) animates forWindow:(NSWindow*) window {
 	if (animates)
-		[AfloatStorage setSharedValue:[NSNumber numberWithBool:YES] window:window key:kAfloatAlphaValueAnimationEnabledKey];
+		[AfloatStorage setSharedValue:@YES window:window key:kAfloatAlphaValueAnimationEnabledKey];
 	else
 		[AfloatStorage removeSharedValueForWindow:window key:kAfloatAlphaValueAnimationEnabledKey];
 }
@@ -420,7 +420,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 		[self setAlphaValue:kAfloatOverlayAlphaValue forWindow:w animated:animated];
 		[self setAlphaValueAnimatesOnMouseOver:NO forWindow:w];
 		[w setIgnoresMouseEvents:YES];
-		[AfloatStorage setSharedValue:[NSNumber numberWithBool:YES] window:w key:kAfloatIsOverlayKey];
+		[AfloatStorage setSharedValue:@YES window:w key:kAfloatIsOverlayKey];
 	} else {
 		if ([w alphaValue] <= kAfloatOverlayAlphaValue)
 			[self setAlphaValue:1.0 forWindow:w animated:animated];

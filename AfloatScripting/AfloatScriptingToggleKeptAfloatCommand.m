@@ -13,9 +13,9 @@
 @implementation AfloatScriptingToggleKeptAfloatCommand
 
 - (id) performDefaultImplementation {
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[self evaluatedArguments] objectForKey:@"showsBadgeAnimation"], YES);	
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([self evaluatedArguments][@"showsBadgeAnimation"], YES);
 	[[NSApp delegate] rearmDeathTimer];
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptToggleKeptAfloatNotification object:kAfloatScriptWireObject userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:showsBadgeAnimation] forKey:@"showsBadgeAnimation"]];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptToggleKeptAfloatNotification object:kAfloatScriptWireObject userInfo:@{@"showsBadgeAnimation": @(showsBadgeAnimation)}];
 	return nil;
 }
 

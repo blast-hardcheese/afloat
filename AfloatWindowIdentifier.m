@@ -133,12 +133,10 @@
 
 + (NSArray*) identifierSubclasses {
 	static id classes = nil; if (!classes) {
-		classes = [[NSArray alloc] initWithObjects:
-				   [_AfloatWindowByAutosaveNameIdentifier class],
+		classes = @[[_AfloatWindowByAutosaveNameIdentifier class],
 				   [_AfloatWindowByClassIdentifier class],
 				   [_AfloatWindowByDelegateClassIdentifier class],
-				   [_AfloatWindowByControllerClassIdentifier class],
-				   nil];
+				   [_AfloatWindowByControllerClassIdentifier class]];
 	}
 	
 	return classes;

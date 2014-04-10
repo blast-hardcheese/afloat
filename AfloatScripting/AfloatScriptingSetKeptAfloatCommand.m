@@ -13,16 +13,14 @@
 @implementation AfloatScriptingSetKeptAfloatCommand
 
 - (id) performDefaultImplementation {
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[self evaluatedArguments] objectForKey:@"showsBadgeAnimation"], YES);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([self evaluatedArguments][@"showsBadgeAnimation"], YES);
 	BOOL keptAfloat = AfloatBOOLFromObject([self directParameter], NO);
 	
 	[[NSApp delegate] rearmDeathTimer];
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptSetKeptAfloatNotification object:kAfloatScriptWireObject userInfo:
-		[NSDictionary dictionaryWithObjectsAndKeys:
-		 [NSNumber numberWithBool:showsBadgeAnimation], @"showsBadgeAnimation",
-		 [NSNumber numberWithBool:keptAfloat], @"keptAfloat",
-		 nil]
-	];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptSetKeptAfloatNotification object:kAfloatScriptWireObject userInfo:@{
+		@"showsBadgeAnimation": @(showsBadgeAnimation),
+		@"keptAfloat": @(keptAfloat)
+	}];
 	return nil;
 }
 

@@ -36,8 +36,7 @@
 	
 	CABasicAnimation* ani = [CABasicAnimation animation];
 	ani.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
-	[[self window] setAnimations:
-	 [NSDictionary dictionaryWithObject:ani forKey:@"frameOrigin"]];
+	[[self window] setAnimations:@{@"frameOrigin": ani}];
 	
 	L0Log(@"badge view = %@", badgeView);
 }

@@ -15,15 +15,13 @@
 - (id) performDefaultImplementation {
 	BOOL pinnedToDesktop = AfloatBOOLFromObject([self directParameter], NO);
 	NSLog(@"Will pin to desktop = %@ (%d)", [self directParameter], pinnedToDesktop);
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[self evaluatedArguments] objectForKey:@"showsBadgeAnimation"], YES);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([self evaluatedArguments][@"showsBadgeAnimation"], YES);
 	
 	[[NSApp delegate] rearmDeathTimer];
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptSetPinnedToDesktopNotification object:kAfloatScriptWireObject userInfo:
-	 [NSDictionary dictionaryWithObjectsAndKeys:
-	  [NSNumber numberWithBool:pinnedToDesktop], @"pinnedToDesktop",
-	  [NSNumber numberWithBool:showsBadgeAnimation], @"showsBadgeAnimation",
-	  nil]
-	 ];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptSetPinnedToDesktopNotification object:kAfloatScriptWireObject userInfo:@{
+		@"pinnedToDesktop": @(pinnedToDesktop),
+		@"showsBadgeAnimation": @(showsBadgeAnimation)
+	}];
 	return nil;
 }
 

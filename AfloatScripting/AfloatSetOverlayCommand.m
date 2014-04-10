@@ -13,16 +13,14 @@
 @implementation AfloatSetOverlayCommand
 
 - (id) performDefaultImplementation {
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[self evaluatedArguments] objectForKey:@"showsBadgeAnimation"], YES);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([self evaluatedArguments][@"showsBadgeAnimation"], YES);
 	BOOL overlay = AfloatBOOLFromObject([self directParameter], NO);
 	
 	[[NSApp delegate] rearmDeathTimer];
-	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptSetOverlayNotification object:kAfloatScriptWireObject userInfo:
-	 [NSDictionary dictionaryWithObjectsAndKeys:
-	  [NSNumber numberWithBool:showsBadgeAnimation], @"showsBadgeAnimation",
-	  [NSNumber numberWithBool:overlay], @"overlay",
-	  nil]
-	 ];
+	[[NSDistributedNotificationCenter defaultCenter] postNotificationName:kAfloatScriptSetOverlayNotification object:kAfloatScriptWireObject userInfo:@{
+		@"showsBadgeAnimation": @(showsBadgeAnimation),
+		@"overlay": @(overlay)
+	}];
 	return nil;
 }
 

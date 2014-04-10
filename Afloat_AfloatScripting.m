@@ -99,8 +99,8 @@ static float AfloatFloatFromObject(id object, float defaultValue) {
 	if (![NSApp isActive]) return;
 	
 	NSWindow* w = [self currentWindow];
-	BOOL isOverlay = AfloatBOOLFromObject([[n userInfo] objectForKey:@"overlay"], NO);
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[n userInfo] objectForKey:@"showsBadgeAnimation"], YES);
+	BOOL isOverlay = AfloatBOOLFromObject([n userInfo][@"overlay"], NO);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([n userInfo][@"showsBadgeAnimation"], YES);
 	
 	[self setOverlay:isOverlay forWindow:w animated:YES showBadgeAnimation:showsBadgeAnimation];
 	
@@ -113,8 +113,8 @@ static float AfloatFloatFromObject(id object, float defaultValue) {
 	L0Log(@"Script: will pin to desktop with notification = %@ userInfo = %@", n, [n userInfo]);
 	
 	NSWindow* w = [self currentWindow];
-	BOOL isPinnedToDesktop = AfloatBOOLFromObject([[n userInfo] objectForKey:@"pinnedToDesktop"], NO);
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[n userInfo] objectForKey:@"showsBadgeAnimation"], YES);
+	BOOL isPinnedToDesktop = AfloatBOOLFromObject([n userInfo][@"pinnedToDesktop"], NO);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([n userInfo][@"showsBadgeAnimation"], YES);
 
 	[self setKeptPinnedToDesktop:isPinnedToDesktop forWindow:w showBadgeAnimation:showsBadgeAnimation];
 	
@@ -125,7 +125,7 @@ static float AfloatFloatFromObject(id object, float defaultValue) {
 	if (![NSApp isActive]) return;
 
 	NSWindow* w = [self currentWindow];
-	BOOL isKeptOnAllSpaces = AfloatBOOLFromObject([[n userInfo] objectForKey:@"keptOnAllSpaces"], NO);
+	BOOL isKeptOnAllSpaces = AfloatBOOLFromObject([n userInfo][@"keptOnAllSpaces"], NO);
 	
 	[self setOnAllSpaces:isKeptOnAllSpaces forWindow:w];
 	
@@ -137,7 +137,7 @@ static float AfloatFloatFromObject(id object, float defaultValue) {
 	
 	NSWindow* w = [self currentWindow];
 	BOOL isKeptAfloat = [self isWindowKeptAfloat:w];
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[n userInfo] objectForKey:@"showsBadgeAnimation"], YES);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([n userInfo][@"showsBadgeAnimation"], YES);
 	
 	if (w)
 		[self setKeptAfloat:!isKeptAfloat forWindow:w showBadgeAnimation:showsBadgeAnimation];
@@ -150,8 +150,8 @@ static float AfloatFloatFromObject(id object, float defaultValue) {
 	
 	NSWindow* w = [self currentWindow];
 	BOOL isKeptAfloat = [self isWindowKeptAfloat:w];
-	BOOL showsBadgeAnimation = AfloatBOOLFromObject([[n userInfo] objectForKey:@"showsBadgeAnimation"], YES);
-	BOOL keepAfloat = AfloatBOOLFromObject([[n userInfo] objectForKey:@"keptAfloat"], NO);
+	BOOL showsBadgeAnimation = AfloatBOOLFromObject([n userInfo][@"showsBadgeAnimation"], YES);
+	BOOL keepAfloat = AfloatBOOLFromObject([n userInfo][@"keptAfloat"], NO);
 	
 	if (keepAfloat == isKeptAfloat) return;
 	
@@ -165,7 +165,7 @@ static float AfloatFloatFromObject(id object, float defaultValue) {
 	if (![NSApp isActive]) return;
 	
 	NSWindow* w = [self currentWindow];
-	float alphaValue = AfloatFloatFromObject([[n userInfo] objectForKey:@"alphaValue"], 1.0);
+	float alphaValue = AfloatFloatFromObject([n userInfo][@"alphaValue"], 1.0);
 	
 	if (w)
 		[self setAlphaValue:alphaValue forWindow:w animated:YES];

@@ -42,21 +42,21 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 }
 
 - (id) valueForWindow:(NSWindow*) w key:(NSString*) k {
-	return [[_backingStorage objectForKey:[NSValue valueWithNonretainedObject:w]] objectForKey:k];
+	return _backingStorage[[NSValue valueWithNonretainedObject:w]][k];
 }
 
 - (void) setValue:(id) v forWindow:(NSWindow*) w key:(NSString*) k {
 	NSMutableDictionary* d = [self mutableDictionaryForWindow:w];
-	[d setObject:v forKey:k];
+	d[k] = v;
 	[self saveWindowIfRequired:w];
 }
 
 - (NSMutableDictionary*) mutableDictionaryForWindow:(NSWindow*) w {
 	NSValue* value = [NSValue valueWithNonretainedObject:w];
-	NSMutableDictionary* d = [_backingStorage objectForKey:value];
+	NSMutableDictionary* d = _backingStorage[value];
 	if (!d) {
 		d = [NSMutableDictionary dictionary];
-		[_backingStorage setObject:d forKey:value];
+		_backingStorage[value] = d;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:w];
 	}
@@ -67,7 +67,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 - (void) windowWillClose:(NSNotification*) n {
 	NSValue* v = [NSValue valueWithNonretainedObject:[n object]];
 	NSMutableDictionary* d = 
-		[_backingStorage objectForKey:v];
+		_backingStorage[v];
 	if (d) {
 		[self.delegate storage:self willRemoveMutableDictionary:d forWindow:[n object]];
 		[_backingStorage removeObjectForKey:v];
@@ -106,7 +106,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 }
 
 - (void) setShouldSave:(BOOL) save forWindow:(NSWindow*) w {
-	[self setValue:[NSNumber numberWithBool:save] forWindow:w key:kAfloatShouldSaveWindowKey];
+	[self setValue:@(save) forWindow:w key:kAfloatShouldSaveWindowKey];
 	if (save)
 		[self saveWindowIfRequired:w];
 }
@@ -120,7 +120,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 	
 	NSMutableDictionary* m = [NSMutableDictionary dictionary];
 	for (NSString* persistedKey in self.persistedKeys)
-		[m setObject:[self valueForWindow:w key:persistedKey] forKey:persistedKey];
+		m[persistedKey] = [self valueForWindow:w key:persistedKey];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:m forKey:cat];
 }
