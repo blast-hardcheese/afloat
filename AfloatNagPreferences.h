@@ -30,7 +30,7 @@ static BOOL AfloatNagGetBooleanForKey(CFStringRef key) {
 }
 
 static void AfloatNagSetPreferenceForKey(CFStringRef key, id obj) {
-	CFPreferencesSetAppValue(key, (CFPropertyListRef) obj, kAfloatNagPreferencesIdentifier);
+	CFPreferencesSetAppValue(key, (__bridge CFPropertyListRef) obj, kAfloatNagPreferencesIdentifier);
 	CFPreferencesAppSynchronize(kAfloatNagPreferencesIdentifier);
 }
 
